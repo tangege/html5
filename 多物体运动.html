@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            height: 2000px;
+        }
+        .box{
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+    <div class="box"></div>
+
+<script>
+
+
+    var oDivs=getByClass(document,'box');
+    for(var i=0;i<oDivs.length;i++){
+        oDivs[i].tt=null;
+        oDivs[i].onmouseover=function(){
+           startMove(this,300);
+        }
+        oDivs[i].onmouseout=function(){
+            startMove(this,100);
+        }
+    }
+
+    function startMove(obj,target){
+        clearInterval(obj.tt);
+        obj.tt=setInterval(function(){
+            var speed=(target-parseInt(getstyle(obj,'width')))/8;
+            speed=speed>0?Math.ceil(speed):Math.floor(speed);
+            if(target==parseInt(getstyle(obj,'width'))){
+                clearInterval(obj.tt);
+            }else{
+                obj.style.width=parseInt(getstyle(obj,'width'))+speed+'px';
+            }
+        },30)
+    }
+    function getstyle(obj,attr){
+        if(obj.currentStyle){
+            return obj.currentStyle[attr];
+        }else{
+            return getComputedStyle(obj,false)[attr];
+        }
+    }
+
+    function getByClass(parent,clss){
+        var p=parent.getElementsByTagName("*");
+        var result=[];
+        for(var i=0;i< p.length;i++){
+            if(p[i].className==clss){
+                result.push(p[i]);
+            }
+        }
+        return result;
+    }
+
+
+</script>
+</body>
+</html>

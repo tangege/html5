@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        #mycanvas{
+            border: 1px solid #ff0000;
+        }
+
+    </style>
+</head>
+<body>
+
+
+<canvas id="mycanvas" width="600" height="400"></canvas>
+
+<button id="startbtn">开始</button>
+<button id="endbtn">停止</button>
+
+
+<script>
+
+
+    var can = document.getElementById('mycanvas');
+    var ctx = can.getContext('2d');
+
+
+
+    var startbtn = document.getElementById('startbtn');
+    var endbtn = document.getElementById('endbtn');
+
+    var x = 300;
+    var y = 300;
+
+    var speed = 10;
+    var timer = null;
+    startbtn.onclick = function(){
+
+        timer = window.setInterval(function(){
+            if(y <= 30){
+                speed = 5;
+            }else if(y >= 300){
+                speed = -5;
+            }
+            y +=speed;
+            drawCircle(ctx,300,y);
+        },20);
+
+    }
+    function drawCircle(ctx,x,y){
+        ctx.clearRect(0,0,600,400);
+        ctx.fillStyle = '#0000ff';
+        ctx.beginPath();
+        ctx.arc(x,y,30,0,(180/Math.PI)*360,false);
+        ctx.closePath();
+        ctx.fill();
+    }
+
+    drawCircle(ctx,300,300);
+
+    endbtn.onclick = function(){
+        clearInterval(timer);
+    }
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+
+        }
+        #div1{
+            width: 100px;
+            height: 100px;
+            background-color: red;
+            position: absolute;
+            left: 0px;
+            top: 50px;
+            filter: alpha(opacity=30);
+            opacity: 0.3;
+        }
+        #sp{
+            width: 1px;
+            height: 300px;
+            background-color: #000;
+            position: absolute;
+            left: 500px;
+        }
+    </style>
+</head>
+<body>
+
+<button id="btn">开始</button>
+<div id="div1"></div>
+<span id="sp"></span>
+
+<script>
+    function $(id){
+        return document.getElementById(id);
+    }
+
+    var btn = document.getElementById('btn');
+    var oDiv= document.getElementById('div1');
+    btn.onclick=function(){
+        startMove(500);
+    }
+
+//    var timer=null;
+//    function startMove(){
+//        clearInterval(timer);
+//        timer=setInterval(function(){
+//            if(oDiv.offsetLeft>=500){
+//                clearInterval(timer);
+//            }else{
+//                oDiv.style.left=oDiv.offsetLeft+10+"px";
+//            }
+//        },30);
+//    }
+
+
+    /*var tt=null;
+    function startMove(target){
+        clearInterval(tt);
+        tt=setInterval(function(){
+            var speed=(target-oDiv.offsetLeft)/8;
+            speed=speed>0? Math.ceil(speed):Math.floor(speed);
+            if(target==oDiv.offsetLeft){
+                clearInterval(tt);
+            }else{
+                oDiv.style.left=oDiv.offsetLeft+speed+'px';
+            }
+        },30)
+    }*/
+
+
+    /*oDiv.onmouseover=function(){
+        startMove(100);
+    }
+    oDiv.onmouseout=function(){
+        startMove(30);
+    }
+
+    var tt=null;
+    var alpha=30;
+    function startMove(target){
+        clearInterval(tt);
+        tt=setInterval(function(){
+            var speed=(target-alpha)/8;
+            speed=speed>0?Math.ceil(speed):Math.floor(speed);
+            if(target==alpha){
+                clearInterval(tt);
+            }else{
+                alpha+=speed;
+                oDiv.style.filter='alpha(opacity='+alpha+')';
+                oDiv.style.opacity=alpha/100;
+            }
+        },30)
+    }*/
+
+
+</script>
+</body>
+</html>

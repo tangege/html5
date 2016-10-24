@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+
+        }
+    </style>
+</head>
+<body>
+
+<input type="text" id="colorvalue"/>
+<button id="btn">颜色</button>
+
+<script>
+
+    var btn=document.getElementById('btn');
+    var colorvalue=document.getElementById('colorvalue');
+
+    btn.onclick=function(ev){
+        var ev=ev||event;
+        var scrollleft=document.documentElement.scrollLeft||document.body.scrollLeft;
+        var scrolltop=document.documentElement.scrollTop||document.body.scrollTop;
+        var mx=ev.clientX+scrollleft;
+        var my=ev.clientY+scrolltop;
+
+        if(!document.getElementById('colorpick')){
+            var oDiv=document.createElement('div');
+            oDiv.id='colorpick';
+            oDiv.tabIndex=1;
+            oDiv.style.outline='none';
+            oDiv.hideFocus=true;
+            oDiv.style.width='230px';
+            oDiv.style.height='170px';
+            oDiv.style.backgroundColor='#F0F0F0';
+            oDiv.style.border='1px solid #CCCCCC';
+            oDiv.style.position='absolute';
+            oDiv.style.left=(mx+5)+'px';
+            oDiv.style.top=(my+10)+'px';
+
+            oDiv.onblur=function(){
+                this.style.display='none';
+            }
+
+            var colorDiv=document.createElement('div');
+            colorDiv.style.width='56px';
+            colorDiv.style.height='20px';
+            colorDiv.style.border='1px solid #CCCCCC';
+            colorDiv.style.position='absolute';
+            colorDiv.style.left='5px';
+            colorDiv.style.top='5px';
+
+            var colorInput=document.createElement('input');
+            colorInput.style.width='56px';
+            colorInput.style.height='20px';
+            colorInput.style.border='1px solid #CCCCCC';
+            colorInput.style.position='absolute';
+            colorInput.style.left='66px';
+            colorInput.style.top='5px';
+
+            var linkDiv=document.createElement('div');
+            linkDiv.style.width='220px';
+            linkDiv.style.height='130px';
+            linkDiv.style.border='1px solid #CCCCCC';
+            linkDiv.style.position='absolute';
+            linkDiv.style.left='5px';
+            linkDiv.style.top='30px';
+
+            var count=1;
+            var hflag=0;
+            var zindex=1;
+            var arr=['00','33','66','99','CC','FF'];
+            for(var i=0;i<arr.length;i++){
+                for(var j=0;j<arr.length;j++){
+                    for(var k=0;k<arr.length;k++){
+                        var link=document.createElement('a');
+                        link.style.width='9px';
+                        link.style.height='9px';
+                        link.style.border='1px solid #000000';
+                        link.style.backgroundColor='#'+arr[i]+arr[j]+arr[k];
+                        link.data='#'+arr[i]+arr[j]+arr[k];
+                        link.style.position='absolute';
+                        if(count==21){
+                            count=1;
+                            hflag++;
+                        }
+                        link.style.left=(10*(count))+'px';
+                        link.style.top=(10*hflag)+'px';
+                        count++;
+
+                        link.onmouseover=function(){
+                            linkDiv.getElementsByTagName('a')[0].onmouseout();
+                            this.style.border='1px solid #ffffff';
+                            this.style.zIndex=zindex++;
+                            colorvalue.value=colorInput.value=colorDiv.style.backgroundColor=this.data;
+
+                        }
+                        link.onmouseout=function(){
+                            this.style.border='1px solid #000000';
+                            this.style.zIndex=0;
+                            document.getElementById('colorpick').focus();
+                        }
+
+                        link.onclick=function(){
+                            document.getElementById('colorpick').blur();
+                        }
+                        linkDiv.appendChild(link);
+                    }
+                }
+            }
+
+            oDiv.appendChild(colorDiv);
+            oDiv.appendChild(colorInput);
+            oDiv.appendChild(linkDiv);
+
+            document.body.appendChild(oDiv);
+            linkDiv.getElementsByTagName('a')[0].onmouseover();
+            oDiv.focus();
+        }else{
+            var oc=document.getElementById('colorpick');
+            oc.style.left=(mx+5)+'px';
+            oc.style.top=(my+10)+'px';
+            oc.style.display='block';
+        }
+
+    }
+
+</script>
+</body>
+</html>

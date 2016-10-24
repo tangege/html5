@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+
+
+        #mycanvas{
+            border: 1px solid red;
+        }
+
+    </style>
+</head>
+<body>
+
+
+<canvas id="mycanvas" width="600" height="400"></canvas>
+
+
+<script>
+
+
+    var canvas = document.getElementById('mycanvas');
+    var ctx = canvas.getContext('2d');
+
+    drawClock();
+
+    function drawClock(){
+
+        ctx.clearRect(0,0,600,400);
+        //表盘
+        ctx.strokeStyle = '#0000ff';
+        ctx.lineWidth = 10;
+        ctx.beginPath();
+        ctx.arc(200,200,150,0,Math.PI*2,false);
+        ctx.closePath();
+        ctx.stroke();
+
+        ctx.save();
+
+        //分刻度
+        ctx.strokeStyle = '#000';
+        ctx.globalCompositeOperation = 'destination-over';
+        ctx.lineWidth = 3;
+        ctx.translate(200,200);
+        ctx.lineCap = 'square';
+        for(var i = 0;i < 60;i++){
+            ctx.save();
+            ctx.rotate((6*i)*Math.PI/180);
+            ctx.beginPath();
+            ctx.moveTo(0,0);
+            ctx.lineTo(0,-140);
+            ctx.closePath();
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        ctx.restore();
+
+        ctx.save();
+
+        ctx.fillStyle = '#fff';
+        ctx.beginPath();
+        ctx.arc(200,200,130,0,Math.PI*2,false);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.restore();
+
+        ctx.save();
+
+        //时刻度
+        ctx.strokeStyle = '#000';
+        ctx.lineWidth = 8;
+        ctx.translate(200,200);
+        ctx.lineCap = 'square';
+        for(var i = 0;i < 12;i++){
+            ctx.save();
+            ctx.rotate((30*i)*Math.PI/180);
+            ctx.beginPath();
+            ctx.moveTo(0,0);
+            ctx.lineTo(0,-142);
+            ctx.closePath()
+            ctx.stroke();
+            ctx.restore();
+        }
+        ctx.restore();
+
+        ctx.save();
+
+        ctx.fillStyle = '#fff';
+        ctx.beginPath();
+        ctx.arc(200,200,122,0,Math.PI*2,false);
+        ctx.closePath();
+        ctx.fill();
+
+        ctx.restore();
+
+
+        ctx.save();
+
+        var date = new Date();
+        var hour = date.getHours();
+        var minutes = date.getMinutes();
+        var seconds = date.getSeconds();
+
+        var hourdeg = 0.5*minutes + 30*hour;
+        var minutesdeg = 0.1*seconds + 6*minutes;
+        var secondsdeg = 6*seconds;
+
+        //时针
+        ctx.strokeStyle = '#000';
+        ctx.lineWidth = 8;
+        ctx.translate(200,200);
+        ctx.rotate(hourdeg*Math.PI/180);
+        ctx.lineCap = 'square';
+        ctx.beginPath();
+        ctx.moveTo(0,10);
+        ctx.lineTo(0,-70);
+        ctx.closePath()
+        ctx.stroke();
+
+        ctx.restore();
+
+        ctx.save();
+        //分针
+        ctx.strokeStyle = '#000';
+        ctx.lineWidth = 8;
+        ctx.translate(200,200);
+        ctx.rotate(minutesdeg*Math.PI/180);
+        ctx.lineCap = 'square';
+        ctx.beginPath();
+        ctx.moveTo(0,15);
+        ctx.lineTo(0,-100);
+        ctx.closePath()
+        ctx.stroke();
+
+
+        ctx.restore();
+
+        ctx.save();
+        //秒针
+        ctx.strokeStyle = '#ff0000';
+        ctx.lineWidth = 3;
+        ctx.translate(200,200);
+        ctx.rotate(secondsdeg*Math.PI/180);
+        ctx.lineCap = 'square';
+        ctx.beginPath();
+        ctx.moveTo(0,20);
+        ctx.lineTo(0,-120);
+        ctx.closePath()
+        ctx.stroke();
+
+        ctx.restore();
+
+        ctx.save();
+
+
+        ctx.beginPath();
+        ctx.arc(200,200,6,0,Math.PI*2,false);
+        ctx.lineWidth = 3;
+        ctx.fillStyle="#000";
+        ctx.fill();
+        ctx.strokeStyle="#f00";
+        ctx.stroke();
+        ctx.closePath();
+
+        ctx.restore();
+
+        ctx.save();
+
+        ctx.translate(200,200);
+        ctx.beginPath();
+        ctx.arc(100*Math.cos((secondsdeg-90)*Math.PI/180),100*Math.sin((secondsdeg-90)*Math.PI/180),6,0,Math.PI*2,false);
+        ctx.lineWidth = 3;
+        ctx.fillStyle="#000";
+        ctx.fill();
+        ctx.strokeStyle="#f00";
+        ctx.stroke();
+        ctx.closePath();
+
+        ctx.restore();
+
+    }
+
+    window.setInterval(drawClock,1000);
+
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <!--<script src="//api.html5media.info/1.1.8/html5media.min.js"></script>-->
+    <script src="js/html5media.min.js"></script>
+    <style>
+
+    </style>
+</head>
+<body>
+
+    <video controls="controls" width="600" height="330" id="video">
+        <source src="video/mov_bbb.mp4" id="videosouce">
+    </video>
+    <span id="time"></span>
+    <br>
+    <button id="playbtn">播放</button>
+    <button id="pausebtn">暂停</button>
+    <button id="stopvos">静音</button>
+    <button id="canvos">取消静音</button>
+    <button id="addvos">+</button>
+    <button id="delvos">-</button>
+    <button id="change">更换资源</button>
+    <button id="videourl">当前url</button>
+    <input type="range" min="0" max="" id="draw" step="0.1">
+    <button id="two">2x</button>
+    <button id="norm">1x</button>
+    <button id="low">0.5x</button><br>
+
+<script>
+
+    function $(id){
+        return document.getElementById(id);
+    }
+
+    var video=$("video");
+
+    $("playbtn").onclick=function(){
+        video.play();
+    }
+
+    $("pausebtn").onclick=function(){
+        if(!video.paused){
+            video.pause();
+        }
+    }
+
+    $("stopvos").onclick=function(){
+        video.muted=true;
+    }
+    $("canvos").onclick=function(){
+        video.muted=false;
+    }
+
+    $("addvos").onclick=function(){
+        video.volume+=0.1;
+    }
+
+    $("delvos").onclick=function(){
+        video.volume-=0.1;
+    }
+
+    $("change").onclick=function(){
+        $("videosouce").src="video/movie.ogg";
+        $("video").load();
+    }
+
+    $("videourl").onclick=function(){
+        alert($("video").currentSrc);
+    }
+
+    $("draw").onchange=function(){
+        $("video").currentTime=this.value;
+    }
+
+    $("two").onclick=function(){
+        $("video").playbackRate=2;
+    }
+
+    $("norm").onclick=function(){
+        $("video").playbackRate=1;
+    }
+
+    $("low").onclick=function(){
+        $("video").playbackRate=0.5;
+    }
+
+    video.ontimeupdate=function(){
+        $("time").innerHTML=parseInt(video.duration-video.currentTime+1);
+        $("draw").max=$("video").duration;
+        $("draw").value=$("video").currentTime;
+        if($("video").ended){
+            alert("结束");
+        }
+    }
+
+</script>
+</body>
+</html>

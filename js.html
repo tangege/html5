@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+
+        }
+        #banner{
+            width: 460px;
+            height: 350px;
+            margin: 0 auto;
+            overflow: hidden;
+            position: relative;
+        }
+        ul{
+            margin: 0px;
+            padding: 0px;
+            width: 2760px;
+            position: absolute;
+        }
+        ul:after{
+            display: block;
+            content: '.';
+            clear: both;
+            font-size: 0;
+        }
+        ul li{
+            list-style-type: none;
+            float: left;
+        }
+        #fen{
+            width: 100px;
+            height: 200px;
+            background-color: #ccc;
+            position: absolute;
+            top: 20px;
+            left: 0px;
+            cursor: pointer;
+        }
+        #btn{
+            width: 22px;
+            height: 80px;
+            background-color: red;
+            position: absolute;
+            left: 100px;
+            top: 50px;
+        }
+        #img{
+            filter: alpha(opacity=30);
+            opacity: 0.3;
+            margin: 0 auto;
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div id="banner">
+        <ul id="bannerul"style="left: 0px;top: 0px;">
+            <li><img src="images/1.jpg"></li>
+            <li><img src="images/2.jpg"></li>
+            <li><img src="images/3.jpg"></li>
+            <li><img src="images/4.jpg"></li>
+            <li><img src="images/5.jpg"></li>
+            <li><img src="images/1.jpg"></li>
+        </ul>
+    </div>
+
+    <!--<div id="fen" style="left: -100px;">-->
+        <!--<div id="btn">分享到</div>-->
+    <!--</div>-->
+
+    <!--<img src="images/2.jpg" id="img"/>-->
+
+<script>
+    function $(id){
+        return document.getElementById(id);
+    }
+
+//    var fen=document.getElementById('fen');
+//    var btn=document.getElementById('btn');
+//    var tt=null;
+//    fen.onmouseover=function(){
+//        startMove(20,0);
+//    }
+//    fen.onmouseout=function(){
+//        startMove(-20,-100);
+//    }
+//    function startMove(speed,target){
+//        clearInterval(tt);
+//        tt=setInterval(function(){
+//            if(fen.offsetLeft==target){
+//                clearInterval(tt);
+//            }else{
+//                fen.style.left=fen.offsetLeft+speed+'px';
+//            }
+//        },30)
+//    }
+//
+//    var img=document.getElementById('img');
+//    var timer=null;
+//    var globalalpha=30;
+//    img.onmouseover=function(){
+//        imgfade(1,100)
+//    }
+//    img.onmouseout=function(){
+//        imgfade(-1,30);
+//    }
+//    function imgfade(arg,target){
+//        clearInterval(timer);
+//        timer=setInterval(function(){
+//            if(globalalpha==target){
+//                clearInterval(timer);
+//            }else{
+//                globalalpha=globalalpha+arg;
+//                img.style.filter="alpha(opacity="+globalalpha+");"
+//                img.style.opacity=globalalpha/100;
+//            }
+//        },30)
+//    }
+
+
+    var bannerul=document.getElementById('bannerul');
+    setInterval(startMove,3000)
+    var innertime=null;
+    var flag=-460;
+    function startMove(){
+        innertime=setInterval(function(){
+            if(bannerul.offsetLeft==flag){
+                clearInterval(innertime);
+                if(flag>-460*5){
+                    flag=flag-460;
+                }else{
+                    bannerul.style.left=0;
+                    flag=-460;
+                }
+            }else{
+                bannerul.style.left=bannerul.offsetLeft+Math.floor((flag-bannerul.offsetLeft)/8)+'px';
+                console.log(bannerul.offsetLeft+"||||||"+Math.floor((flag-bannerul.offsetLeft)/8));
+            }
+        },30)
+    }
+
+
+
+//
+//   function gettime(){
+//       var date=new Date();
+//       var year=date.getFullYear();
+//       var month=date.getMonth()+1;
+//       var day=date.getDate();
+//       var hour=date.getHours();
+//       var min=date.getMinutes();
+//       var sec=date.getSeconds();
+//
+//       hour=hour<10 ? "0"+hour:hour;
+//       min=min<10 ? "0"+min:min;
+//       sec=sec<10 ? "0"+sec:sec;
+//
+//       var time=year+"年"+month+"月"+day+"日 "+hour+"时"+min+"分"+sec+"秒";
+//       $("time").innerHTML=time;
+//   }
+//    gettime();
+//    setInterval(gettime,1000);
+
+
+//    document.documentElement.onclick=function(ev){
+//        ev=ev||event;
+//        alert(ev.clientX);
+//    }
+
+//    document.documentElement.onclick=function(ev){
+//        ev=ev||event;
+//        alert(ev.clientX);
+//    }
+//    document.body.onclick=function(){
+//        var scrollTop= document.documentElement.scrollTop || document.body.scrollTop;
+//        alert(scrollTop);
+//    }
+
+</script>
+</body>
+</html>
