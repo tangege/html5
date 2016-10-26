@@ -2,24 +2,80 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="3" />
     <title></title>
     <style>
-        div{
-            width: 100px;
-            height: 100px;
-            border: 1px solid red;
-        }
+
+
     </style>
 </head>
 <body>
 
 
-    <blockquote>打打打打就打都白搭打打打哈打电话打就打打打打打就打都白搭打打打哈打电话打就打打打打打就打都白搭打打打哈打电话打就打打打打打就打都白搭打打打哈打电话打就打<blockquote/>
+<input type="file" multiple id="filebtn"/>
+<input type="button" value="上传" id="btn"/>
+<img src="" alt="" id="tempimg"/>
 
 
 <script>
 
+
+    var filebtn = document.getElementById("filebtn");
+    document.getElementById("btn").onclick = function () {
+        //var files = filebtn.files;
+//        for( var i = 0,len = files.length; i < len; i++){
+//            var file = files[i];
+//            alert(file.name);
+//        }
+
+        //alert(filebtn.value);
+//        var files = getFileName(filebtn);
+//        for( var i = 0; i < files.length; i++){
+//            alert(files[i]);
+//        }
+
+        var obj_img = document.getElementById('tempimg');
+        obj_img.dynsrc=filebtn.value;
+        filesize = obj_img.fileSize;
+        alert(filesize);
+//        alert(getFileSize(filebtn.files[0]));
+    }
+
+
+    //获取文件名
+    function getFileName (obj, fn) {
+        var result = [];
+        var files = obj.files;
+        if(files){
+            for( var i = 0,len = files.length; i < len; i++){
+                var file = files[i];
+                result.push(file.name);
+
+                fn.call(file,{
+                    name: file.name,
+                    type: file.type,
+                    size: file.size
+                })
+            }
+        }else {
+            var name = obj.value.substring(obj.value.lastIndexOf("\\") + 1);
+            result.push(name);
+        }
+        return result;
+    }
+
+
+    //获取文件类型
+    function getFilesType (obj) {
+
+
+
+        return file.type;
+    }
+
+
+    function getFileSize (file) {
+        return file.size;
+    }
 
 
 </script>
