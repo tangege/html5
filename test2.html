@@ -5,77 +5,82 @@
     <title></title>
     <style>
 
+        #gg{
+            width: 500px;
+            height: 400px;
+        }
 
     </style>
 </head>
 <body>
 
 
-<input type="file" multiple id="filebtn"/>
-<input type="button" value="上传" id="btn"/>
+<input type="file" id="filebtn"/>
+<!--<input type="button" value="上传" id="btn"/>-->
 <img src="" alt="" id="tempimg"/>
+<div id="gg"></div>
 
 
+<script src="js/preimgs.js"></script>
 <script>
 
 
+
+
     var filebtn = document.getElementById("filebtn");
-    document.getElementById("btn").onclick = function () {
-        //var files = filebtn.files;
-//        for( var i = 0,len = files.length; i < len; i++){
-//            var file = files[i];
-//            alert(file.name);
-//        }
 
-        //alert(filebtn.value);
-//        var files = getFileName(filebtn);
-//        for( var i = 0; i < files.length; i++){
-//            alert(files[i]);
+    filebtn.onchange = function () {
+//        var reader = new FileReader();
+//        reader.readAsDataURL(filebtn.files[0]);
+//        reader.onload = function (e) {
+//            document.getElementById('tempimg').src = reader.result;
 //        }
-
-        var obj_img = document.getElementById('tempimg');
-        obj_img.dynsrc=filebtn.value;
-        filesize = obj_img.fileSize;
-        alert(filesize);
-//        alert(getFileSize(filebtn.files[0]));
+        PreviewImage(filebtn,"tempimg", "gg");
     }
 
 
+
+
+
+
+
+    //PreviewImage(filebtn,"tempimg", "gg");
+//    document.getElementById("btn").onclick = function () {
+//        getFiles(filebtn, function(file){
+//            alert(this.name);
+//        })
+//    }
+
     //获取文件名
-    function getFileName (obj, fn) {
-        var result = [];
+    function getFiles (obj, fn) {
         var files = obj.files;
         if(files){
             for( var i = 0,len = files.length; i < len; i++){
                 var file = files[i];
-                result.push(file.name);
-
-                fn.call(file,{
-                    name: file.name,
-                    type: file.type,
-                    size: file.size
-                })
+                if(typeof fn === "function"){
+                    fn.call(file,{
+                        name: file.name,
+                        type: file.type,
+                        size: file.size
+                    })
+                }
             }
         }else {
-            var name = obj.value.substring(obj.value.lastIndexOf("\\") + 1);
-            result.push(name);
+            throw new Error("您的浏览器不支持file api");
         }
-        return result;
+    }
+
+    function isIMG (obj) {
+        getFiles(obj, function (file) {
+            if(!/image\/\w+/.test(file.type)){
+                alert(file.name + "不是图片文件！");
+                throw new Error("error");
+            }
+        })
     }
 
 
-    //获取文件类型
-    function getFilesType (obj) {
 
-
-
-        return file.type;
-    }
-
-
-    function getFileSize (file) {
-        return file.size;
-    }
 
 
 </script>

@@ -2,17 +2,33 @@
  * Created by Administrator on 2016/10/26 0026.
  */
 //获取文件名
-function getFileName (obj) {
-    var result = [];
+function getFiles (obj, fn) {
     var files = obj.files;
     if(files){
         for( var i = 0,len = files.length; i < len; i++){
             var file = files[i];
-            result.push(file.name);
+            if(typeof fn === "function"){
+                fn.call(file,{
+                    name: file.name,
+                    type: file.type,
+                    size: file.size
+                })
+            }
         }
     }else {
-        var name = obj.value.substring(obj.value.lastIndexOf("\\") + 1);
-        result.push(name);
+        throw new Error("您的浏览器不支持file api");
     }
-    return result;
+}
+
+/**
+ * 是否图片
+ * @param obj
+ */
+function isIMG (obj) {
+    getFiles(obj, function (file) {
+        if(!/image\/\w+/.test(file.type)){
+            alert(file.name + "不是图片文件！");
+            throw new Error("error");
+        }
+    })
 }
