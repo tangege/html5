@@ -15,69 +15,35 @@
 <body>
 
 
-<input type="file" id="filebtn"/>
-<!--<input type="button" value="上传" id="btn"/>-->
-<img src="" alt="" id="tempimg"/>
-<div id="gg"></div>
+<video id="myvideo" width="500" controls>
+    <source src="video/mov_bbb.mp4"/>
+    <source src="video/movie.ogg"/>
+    您的浏览器不支持video标签！
+</video>
 
+<button id="btn">点击</button>
 
 <script src="js/preimgs.js"></script>
 <script>
 
 
+    var myvideo = document.getElementById("myvideo");
 
+    document.getElementById("btn").onclick = function () {
+        height(myvideo, 1000);
+    }
 
-    var filebtn = document.getElementById("filebtn");
+    //设置元素宽度
+    function width (videoobj, width){
+        videoobj.width = width;
+    }
 
-    filebtn.onchange = function () {
-//        var reader = new FileReader();
-//        reader.readAsDataURL(filebtn.files[0]);
-//        reader.onload = function (e) {
-//            document.getElementById('tempimg').src = reader.result;
-//        }
-        PreviewImage(filebtn,"tempimg", "gg");
+    //设置元素高度
+    function height (videoobj, height) {
+        videoobj.height = height;
     }
 
 
-
-
-
-
-
-    //PreviewImage(filebtn,"tempimg", "gg");
-//    document.getElementById("btn").onclick = function () {
-//        getFiles(filebtn, function(file){
-//            alert(this.name);
-//        })
-//    }
-
-    //获取文件名
-    function getFiles (obj, fn) {
-        var files = obj.files;
-        if(files){
-            for( var i = 0,len = files.length; i < len; i++){
-                var file = files[i];
-                if(typeof fn === "function"){
-                    fn.call(file,{
-                        name: file.name,
-                        type: file.type,
-                        size: file.size
-                    })
-                }
-            }
-        }else {
-            throw new Error("您的浏览器不支持file api");
-        }
-    }
-
-    function isIMG (obj) {
-        getFiles(obj, function (file) {
-            if(!/image\/\w+/.test(file.type)){
-                alert(file.name + "不是图片文件！");
-                throw new Error("error");
-            }
-        })
-    }
 
 
 

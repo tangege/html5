@@ -32,3 +32,19 @@ function isIMG (obj) {
         }
     })
 }
+
+/**
+ * 读取文本文件
+ * @param fileobj
+ * @param outputobj
+ */
+function readText (fileobj, outputobj) {
+    var file = fileobj.files[0];
+    if(file && typeof FileReader !== "undefined"){
+        var reader = new FileReader();
+        reader.readAsText(file);
+        reader.onload = function (f) {
+            outputobj.innerHTML = this.result;
+        }
+    }
+}
