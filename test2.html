@@ -21,7 +21,9 @@
     您的浏览器不支持video标签！
 </video>
 
-<button id="btn">点击</button>
+<button id="playbtn">播放</button>
+<button id="pausebtn">暂停</button>
+<button id="stopbtn">停止</button>
 
 <script src="js/preimgs.js"></script>
 <script>
@@ -29,8 +31,59 @@
 
     var myvideo = document.getElementById("myvideo");
 
-    document.getElementById("btn").onclick = function () {
-        height(myvideo, 1000);
+    document.getElementById("playbtn").onclick = function () {
+        myvideo.play();
+    }
+    document.getElementById("pausebtn").onclick = function () {
+        myvideo.pause();
+    }
+
+    document.getElementById("stopbtn").onclick = function () {
+        stopVideo(myvideo);
+    }
+
+
+    //停止视频
+    function stopVideo (videoobj){
+        videoobj.pause();
+        videoobj.currentTime = 0;
+    }
+
+    //返回视频播放当前长度
+    function getDuration (videoobj) {
+        return videoobj.duration;
+    }
+
+    //返回播放当前时间
+    function getCurrentTime (videoobj) {
+        return videoobj.currentTime;
+    }
+
+    //返回媒体的url属性
+    function getVideoURL (videoobj) {
+        return videoobj.currentSrc;
+    }
+
+    //检测视频类型是否能被播放
+    function checkVideoType (type) {
+        var video = document.createElement("video");
+        if(video.canPlayType){
+            if("" !== video.canPlayType(type)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //检测音频类型是否能被播放
+    function checkAudioType (type) {
+        var audio = document.createElement("audio");
+        if(audio.canPlayType){
+            if("" !== audio.canPlayType(type)){
+                return true;
+            }
+        }
+        return false;
     }
 
     //设置元素宽度
@@ -43,7 +96,38 @@
         videoobj.height = height;
     }
 
-
+    //报错
+    function loadingError (videoobj) {
+        var videsArr = [];
+        if(typeof videoobj !== "undefined" && videoobj){
+            videsArr.push(videoobj);
+        }else {
+            var videos = document.getElementsByTagName("video");
+            videsArr = videos;
+        }
+        for(var i = 0,len = videsArr.length; i < len; i++){
+            videsArr[i].addEventListener("error", function () {
+                var error = this.error;
+                switch (error.code){
+                    case 1:
+                        alert("视频下载过程被终止！");
+                        break;
+                    case 2:
+                        alert("网络发生故障，视频下载过程被终止！");
+                        break;
+                    case 3:
+                        alert("解码失败。");
+                        break;
+                    case 4:
+                        alert("不支持播放的视频格式。");
+                        break;
+                    default :
+                        alert("发生未知错误。");
+                        break;
+                }
+            })
+        }
+    }
 
 
 
