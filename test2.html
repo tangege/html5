@@ -25,7 +25,10 @@
 <button id="playbtn">播放</button>
 <button id="pausebtn">暂停</button>
 <button id="stopbtn">停止</button>
+<button id="vbtn">静音</button>
 <button id="btn">测试</button>
+<input id="qq" type="range" min="0" step="0.01" value="0"/>
+<input id="volume" type="range" min="0" step="0.1" value="1" max="1"/>
 
 <script src="js/preimgs.js"></script>
 <script>
@@ -46,15 +49,34 @@
 
     getCurrentTime(myvideo, function (currentime) {
         document.getElementById("currenttime").innerHTML = "0:" + currentime;
+        document.getElementById("qq").value = currentime;
     })
 
     getDuration(myvideo, function (duration) {
         document.getElementById("totaltime").innerHTML = "/0:" + duration;
+        document.getElementById("qq").max = duration;
     })
 
-    //myvideo.ondurationchange = function () {
+    document.getElementById("vbtn").onclick = function () {
+        myvideo.muted = !myvideo.muted;
+        if(myvideo.muted){
+            this.innerHTML = "取消静音";
+        }else {
+            this.innerHTML = "静音";
+        }
+    }
 
-    //}
+    document.getElementById("qq").oninput = function () {
+        var value = this.value;
+        myvideo.currentTime = value;
+    }
+
+    document.getElementById("volume").oninput = function () {
+        var value = this.value;
+        myvideo.volume = value;
+    }
+
+
     document.getElementById("btn").onclick = function () {
 
     }
