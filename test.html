@@ -2,16 +2,58 @@
 <html>
 <head lang="en">
     <meta charset="UTF-8">
-    <!--<meta http-equiv="window-target" content="_top">-->
     <title></title>
+    <style>
+    	
+		#aa,#cc{
+			width: 100px;
+			height: 100px;
+			border: 1px solid red;
+		}
+
+    </style>
 </head>
 <body>
 
 
-<a href="test2.html">test2</a>
+	
+	<div id="aa"></div>
+	<div id="cc"></div>
+	<p id="bb">dadhadhahodiaajdohaodh</p>
 
 
 <script>
+
+
+
+	dragToSomeWhere(document.getElementById("bb"), document.getElementById("aa"));
+	dragToSomeWhere(document.getElementById("bb"), document.getElementById("cc"));
+	dragToSomeWhere(document.getElementById("bb"), document.body);
+
+
+
+	function dragToSomeWhere( drag, drop) {
+	
+		var draggable = drag.getAttribute("draggable");
+		if( !draggable ){
+			drag.setAttribute("draggable", "true");	
+		}
+		drop.addEventListener("dragover", function (ev) {
+			ev.preventDefault();
+		}, false);
+
+		drag.addEventListener("dragstart", function (ev) {
+			ev.dataTransfer.setData("Text",ev.target.id);
+		}, false)
+
+		drop.addEventListener("drop", function (ev) {
+			ev.preventDefault();
+			ev.stopPropagation();
+			var data = ev.dataTransfer.getData("Text");
+			ev.target.appendChild(document.getElementById(data));
+		}, false);
+
+	}
 
 
 
