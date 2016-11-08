@@ -3,99 +3,202 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title></title>
-    <!--<script src="//api.html5media.info/1.1.8/html5media.min.js"></script>-->
-    <script src="js/html5media.min.js"></script>
     <style>
 
+        #gg{
+            width: 500px;
+            height: 400px;
+        }
+
+        
     </style>
 </head>
 <body>
 
-    <video controls="controls" width="600" height="330" id="video">
-        <source src="video/mov_bbb.mp4" id="videosouce">
-    </video>
-    <span id="time"></span>
-    <br>
-    <button id="playbtn">播放</button>
-    <button id="pausebtn">暂停</button>
-    <button id="stopvos">静音</button>
-    <button id="canvos">取消静音</button>
-    <button id="addvos">+</button>
-    <button id="delvos">-</button>
-    <button id="change">更换资源</button>
-    <button id="videourl">当前url</button>
-    <input type="range" min="0" max="" id="draw" step="0.1">
-    <button id="two">2x</button>
-    <button id="norm">1x</button>
-    <button id="low">0.5x</button><br>
 
+<video id="myvideo" width="500" controls>
+    <source src="video/mov_bbb.mp4"/>
+    <source src="video/movie.ogg"/>
+    您的浏览器不支持video标签！
+</video>
+<span id="currenttime">0:00</span>
+<span id="totaltime"></span>
+<button id="playbtn">播放</button>
+<button id="pausebtn">暂停</button>
+<button id="stopbtn">停止</button>
+<button id="vbtn">静音</button>
+<button id="allbtn">全屏</button>
+<button id="btn">测试</button>
+<input id="qq" type="range" min="0" step="0.01" value="0"/>
+<input id="volume" type="range" min="0" step="0.1" value="1" max="1"/>
+
+<script src="js/preimgs.js"></script>
 <script>
 
-    function $(id){
-        return document.getElementById(id);
+
+    var myvideo = document.getElementById("myvideo");
+
+    document.getElementById("playbtn").onclick = function () {
+        myvideo.play();
+    }
+    document.getElementById("pausebtn").onclick = function () {
+        myvideo.pause();
     }
 
-    var video=$("video");
-
-    $("playbtn").onclick=function(){
-        video.play();
+    document.getElementById("stopbtn").onclick = function () {
+        stopVideo(myvideo);
     }
 
-    $("pausebtn").onclick=function(){
-        if(!video.paused){
-            video.pause();
+    getCurrentTime(myvideo, function (currentime) {
+        document.getElementById("currenttime").innerHTML = "0:" + currentime;
+        document.getElementById("qq").value = currentime;
+    })
+
+    getDuration(myvideo, function (duration) {
+        document.getElementById("totaltime").innerHTML = "/0:" + duration;
+        document.getElementById("qq").max = duration;
+    })
+
+    document.getElementById("vbtn").onclick = function () {
+        myvideo.muted = !myvideo.muted;
+        if(myvideo.muted){
+            this.innerHTML = "取消静音";
+        }else {
+            this.innerHTML = "静音";
         }
     }
 
-    $("stopvos").onclick=function(){
-        video.muted=true;
-    }
-    $("canvos").onclick=function(){
-        video.muted=false;
+    document.getElementById("allbtn").onclick = function () {
+        fullScreen( myvideo );
     }
 
-    $("addvos").onclick=function(){
-        video.volume+=0.1;
+    document.getElementById("qq").oninput = function () {
+        var value = this.value;
+        myvideo.currentTime = value;
     }
 
-    $("delvos").onclick=function(){
-        video.volume-=0.1;
+    document.getElementById("volume").oninput = function () {
+        var value = this.value;
+        myvideo.volume = value;
     }
 
-    $("change").onclick=function(){
-        $("videosouce").src="video/movie.ogg";
-        $("video").load();
+
+    document.getElementById("btn").onclick = function () {
+
     }
 
-    $("videourl").onclick=function(){
-        alert($("video").currentSrc);
-    }
-
-    $("draw").onchange=function(){
-        $("video").currentTime=this.value;
-    }
-
-    $("two").onclick=function(){
-        $("video").playbackRate=2;
-    }
-
-    $("norm").onclick=function(){
-        $("video").playbackRate=1;
-    }
-
-    $("low").onclick=function(){
-        $("video").playbackRate=0.5;
-    }
-
-    video.ontimeupdate=function(){
-        $("time").innerHTML=parseInt(video.duration-video.currentTime+1);
-        $("draw").max=$("video").duration;
-        $("draw").value=$("video").currentTime;
-        if($("video").ended){
-            alert("结束");
+    function fullScreen(videoobj) {
+        if( videoobj.webkitSupportsFullscreen ){
+             videoobj.webkitEnterFullscreen();   
         }
     }
+
+    //停止视频
+    function stopVideo (videoobj){
+        videoobj.pause();
+        videoobj.currentTime = 0;
+    }
+
+    //返回视频播放当前长度
+    function getDuration (videoobj, fn) {
+        if(videoobj.duration){
+            if(fn){
+                fn.call(this, Math.round(videoobj.duration));
+            }
+        }else {
+            videoobj.addEventListener("durationchange", function () {
+                videoobj.removeEventListener("durationchange", arguments.callee, false);
+                if(fn){
+                    fn.call(videoobj, Math.round(videoobj.duration) < 10? "0" + Math.round(videoobj.duration):Math.round(videoobj.duration));
+                }
+            }, false)
+        }
+    }
+
+    //返回播放当前时间
+    function getCurrentTime (videoobj, fn) {
+        videoobj.addEventListener("timeupdate", function () {
+            if(fn){
+                fn.call(videoobj, Math.floor(videoobj.currentTime) < 10? "0" + Math.floor(videoobj.currentTime): Math.floor(videoobj.currentTime));
+            }
+        }, false);
+    }
+
+    //返回媒体的url属性
+    function getVideoURL (videoobj) {
+        return videoobj.currentSrc;
+    }
+
+    //检测视频类型是否能被播放
+    function checkVideoType (type) {
+        var video = document.createElement("video");
+        if(video.canPlayType){
+            if("" !== video.canPlayType(type)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //检测音频类型是否能被播放
+    function checkAudioType (type) {
+        var audio = document.createElement("audio");
+        if(audio.canPlayType){
+            if("" !== audio.canPlayType(type)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    //设置元素宽度
+    function width (videoobj, width){
+        videoobj.width = width;
+    }
+
+    //设置元素高度
+    function height (videoobj, height) {
+        videoobj.height = height;
+    }
+
+    //报错
+    function loadingError (videoobj) {
+        var videsArr = [];
+        if(typeof videoobj !== "undefined" && videoobj){
+            videsArr.push(videoobj);
+        }else {
+            var videos = document.getElementsByTagName("video");
+            videsArr = videos;
+        }
+        for(var i = 0,len = videsArr.length; i < len; i++){
+            videsArr[i].addEventListener("error", function () {
+                var error = this.error;
+                switch (error.code){
+                    case 1:
+                        alert("视频下载过程被终止！");
+                        break;
+                    case 2:
+                        alert("网络发生故障，视频下载过程被终止！");
+                        break;
+                    case 3:
+                        alert("解码失败。");
+                        break;
+                    case 4:
+                        alert("不支持播放的视频格式。");
+                        break;
+                    default :
+                        alert("发生未知错误。");
+                        break;
+                }
+            })
+        }
+    }
+
+
+
+
 
 </script>
+
 </body>
 </html>
