@@ -27,6 +27,7 @@
 <button id="pausebtn">暂停</button>
 <button id="stopbtn">停止</button>
 <button id="vbtn">静音</button>
+<button id="allbtn">全屏</button>
 <button id="btn">测试</button>
 <input id="qq" type="range" min="0" step="0.01" value="0"/>
 <input id="volume" type="range" min="0" step="0.1" value="1" max="1"/>
@@ -67,6 +68,10 @@
         }
     }
 
+    document.getElementById("allbtn").onclick = function () {
+        fullScreen( myvideo );
+    }
+
     document.getElementById("qq").oninput = function () {
         var value = this.value;
         myvideo.currentTime = value;
@@ -80,6 +85,12 @@
 
     document.getElementById("btn").onclick = function () {
 
+    }
+
+    function fullScreen(videoobj) {
+        if( videoobj.webkitSupportsFullscreen ){
+             videoobj.webkitEnterFullscreen();   
+        }
     }
 
     //停止视频
