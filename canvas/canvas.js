@@ -2,7 +2,7 @@
  * Created by Administrator on 2016/10/25 0025.
  */
 /**
- * »­Ö±Ïß
+ * ç”»çº¿
  * @param context
  * @param opts
  */
@@ -14,12 +14,12 @@ function drawLine (context,opts) {
         context.lineTo(opts.position[2], opts.position[3]);
         context.stroke();
     }else {
-        throw new Error("²ÎÊý²»¶Ô£¡");
+        throw new Error("arguments was wrong!");
     }
 }
 
 /**
- * »­¾ØÐÎ
+ * ç”»çŸ©å½¢
  * @param context
  * @param opts
  */
@@ -42,6 +42,6 @@ function drawRectangle (context,opts) {
                 break;
         }
     }else {
-        throw new Error("²ÎÊý²»¶Ô£¡");
+        throw new Error("arguments was wrong!");
     }
 }

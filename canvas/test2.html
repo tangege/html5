@@ -5,6 +5,9 @@
     <title></title>
     <style>
 
+		canvas{
+			border: 1px solid red;
+		}
 
 
     </style>
@@ -12,13 +15,18 @@
 <body>
 
 
-
+<canvas id="can" width="600" height="400">
+	您的浏览器版本太低了！
+</canvas>
 
 
 
 
 <script>
 
+
+ var can = document.getElementById("can");
+ var ctx = can.getContext("2d");
 
 
 
