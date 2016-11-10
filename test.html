@@ -1,38 +1,38 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
 <head lang="en">
     <meta charset="utf-8">
     <title></title>
     <link rel="stylesheet" type="text/css" href="css/common.min.css">
     <style>
-    	video{
-    		display: block;
-    	}
+    	
+
+	
 
     </style>
 </head>
 <body>
 
 
-	<div id="bb">
-		<video id="aa">
-			<source src="video/movie.ogg">
-			您的浏览器版本太低了！
-		</video>
-	</div>
+	<input type="text" id="aa">
+	<button id="btn">计算</button>
+	
+	<script type="text/javascript" src="js/modernizr.js"></script>
+	<!-- <script type="text/javascript" src="js/bb.js"></script> -->
+	<script>
 
+		
+		var worker = new Worker("js/aa.js");
+		worker.onmessage = function (ev){
+			var data = ev.data;
+			console.log(data);
+		}
+		document.getElementById('btn').onclick = function () {
+			var val = parseInt(document.getElementById("aa").value);
+			worker.postMessage(val);
+		}
 
-<script type="text/javascript" src="js/modernizr.js"></script>
-<script>
-
-	if(Modernizr.video){
-		alert("ok");
-	}else{
-		document.getElementById("bb").style.display = "none";
-	}
-
-
-</script>
+	</script>
 
 </body>
 </html>

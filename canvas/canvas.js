@@ -7,15 +7,11 @@
  * @param opts
  */
 function drawLine (context,opts) {
-    if(arguments.length === 2){
-        context.strokeStyle = opts["color"] || "#000";
-        context.beginPath();
-        context.moveTo(opts.position[0], opts.position[1]);
-        context.lineTo(opts.position[2], opts.position[3]);
-        context.stroke();
-    }else {
-        throw new Error("arguments was wrong!");
-    }
+    context.strokeStyle = opts["color"] || "#000";
+    context.beginPath();
+    context.moveTo(opts.position[0], opts.position[1]);
+    context.lineTo(opts.position[2], opts.position[3]);
+    context.stroke();
 }
 
 /**

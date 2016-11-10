@@ -1,17 +1,17 @@
 /**
  * Created by Administrator on 2016/10/31 0031.
  */
-//ÉèÖÃÔªËØ¿í¶È
+//è®¾ç½®è§†é¢‘å®½
 function width (videoobj, width){
     videoobj.width = width;
 }
 
-//ÉèÖÃÔªËØ¸ß¶È
+//è®¾ç½®è§†é¢‘é«˜
 function height (videoobj, height) {
     videoobj.height = height;
 }
 
-//±¨´í
+//Â±Â¨Â´Ã­
 function loadingError (videoobj) {
     var videsArr = [];
     if(typeof videoobj !== "undefined" && videoobj){
@@ -25,26 +25,26 @@ function loadingError (videoobj) {
             var error = this.error;
             switch (error.code){
                 case 1:
-                    alert("ÊÓÆµÏÂÔØ¹ı³Ì±»ÖÕÖ¹£¡");
+                    alert("ÃŠÃ“Ã†ÂµÃÃ‚Ã”Ã˜Â¹Ã½Â³ÃŒÂ±Â»Ã–Ã•Ã–Â¹Â£Â¡");
                     break;
                 case 2:
-                    alert("ÍøÂç·¢Éú¹ÊÕÏ£¬ÊÓÆµÏÂÔØ¹ı³Ì±»ÖÕÖ¹£¡");
+                    alert("ÃÃ¸Ã‚Ã§Â·Â¢Ã‰ÃºÂ¹ÃŠÃ•ÃÂ£Â¬ÃŠÃ“Ã†ÂµÃÃ‚Ã”Ã˜Â¹Ã½Â³ÃŒÂ±Â»Ã–Ã•Ã–Â¹Â£Â¡");
                     break;
                 case 3:
-                    alert("½âÂëÊ§°Ü¡£");
+                    alert("Â½Ã¢Ã‚Ã«ÃŠÂ§Â°ÃœÂ¡Â£");
                     break;
                 case 4:
-                    alert("²»Ö§³Ö²¥·ÅµÄÊÓÆµ¸ñÊ½¡£");
+                    alert("Â²Â»Ã–Â§Â³Ã–Â²Â¥Â·Ã…ÂµÃ„ÃŠÃ“Ã†ÂµÂ¸Ã±ÃŠÂ½Â¡Â£");
                     break;
                 default :
-                    alert("·¢ÉúÎ´Öª´íÎó¡£");
+                    alert("Â·Â¢Ã‰ÃºÃÂ´Ã–ÂªÂ´Ã­ÃÃ³Â¡Â£");
                     break;
             }
         })
     }
 }
 
-//¼ì²âÊÓÆµÀàĞÍÊÇ·ñÄÜ±»²¥·Å
+//æ˜¯å¦æ”¯æŒè§†é¢‘æ ¼å¼æ’­æ”¾ç±»å‹
 function checkVideoType (type) {
     var video = document.createElement("video");
     if(video.canPlayType){
@@ -55,7 +55,7 @@ function checkVideoType (type) {
     return false;
 }
 
-//¼ì²âÒôÆµÀàĞÍÊÇ·ñÄÜ±»²¥·Å
+//æ˜¯å¦æ”¯æŒéŸ³é¢‘æ ¼å¼æ’­æ”¾ç±»å‹
 function checkAudioType (type) {
     var audio = document.createElement("audio");
     if(audio.canPlayType){
@@ -66,7 +66,12 @@ function checkAudioType (type) {
     return false;
 }
 
-//·µ»ØÃ½ÌåµÄurlÊôĞÔ
+//è¿”å›video   url
 function getVideoURL (videoobj) {
     return videoobj.currentSrc;
+}
+
+//æ˜¯å¦æ”¯æŒvideoå…ƒç´    
+function isSupportVideo() {
+    return !!(document.createElement("video").canPlayType);
 }
