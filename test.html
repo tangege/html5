@@ -6,6 +6,16 @@
     <link rel="stylesheet" type="text/css" href="css/common.min.css">
     <style>
     	
+    	textarea{
+    		
+    		width: 400px;
+    		height: 200px;
+
+    	}
+    	ul,li{
+    		margin: 0;
+    		padding: 0;
+    	}
 
 	
 
@@ -13,24 +23,22 @@
 </head>
 <body>
 
+	<form action="？？？">
+		<input type="email" name="email">
+		<input type="datetime-local" name="datetime">
+		<input id="age" type="range" name="age" min="0" max="120" step="1" value="18">
+		<span id="aa">18</span>
+		<input type="submit" value="提交">
+	</form>
 
-	<input type="text" id="aa">
-	<button id="btn">计算</button>
-	
 	<script type="text/javascript" src="js/modernizr.js"></script>
-	<!-- <script type="text/javascript" src="js/bb.js"></script> -->
 	<script>
 
-		
-		var worker = new Worker("js/aa.js");
-		worker.onmessage = function (ev){
-			var data = ev.data;
-			console.log(data);
-		}
-		document.getElementById('btn').onclick = function () {
-			var val = parseInt(document.getElementById("aa").value);
-			worker.postMessage(val);
-		}
+		document.getElementById("age").oninput = function(){
+			document.getElementById("aa").innerHTML = this.value;	
+		}	
+
+
 
 	</script>
 
