@@ -1,0 +1,67 @@
+<!doctype html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+    	body{
+            margin: 0;
+            padding: 0;
+        }
+    	canvas{
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+
+    </style>
+</head>
+<body>
+
+    <div>
+        <img src="../images/01.jpg">
+    </div>
+    <canvas id="mycanvas" width="800" height="800" style="border: 1px solid red;"></canvas>
+	
+	
+	<script>
+        var canvas = document.getElementById("mycanvas");
+        var ctx = canvas.getContext("2d");
+        
+        ctx.fillStyle = "#ccc";
+        ctx.fillRect(0,0,canvas.width, canvas.height);
+        canvas.onmousedown = function (ev) {
+            var cObj = canvas.getBoundingClientRect();
+            var x = ev.clientX - cObj.left;
+            var y = ev.clientY - cObj.top;
+            clear(ctx, x, y, 15);
+
+            document.onmousemove = function (ev) {
+                var x = ev.clientX - cObj.left;
+                var y = ev.clientY - cObj.top;
+                clear(ctx, x, y, 15);
+            }
+            document.onmouseup = function (ev) {
+                document.onmousemove = null;
+                document.onmouseup = null;
+            }
+        }
+
+
+        function clear(ctx, x, y, r) {
+            ctx.globalCompositeOperation = "destination-out";
+            ctx.fillStyle = "#ccc";
+            ctx.beginPath();
+            ctx.arc(x, y, r, 0, Math.PI*2, false);
+            ctx.fill();
+        }
+
+        
+
+
+
+
+	</script>
+
+</body>
+</html>

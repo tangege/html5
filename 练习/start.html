@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+    	
+    	canvas{
+            margin: 0 auto;
+            display: block;
+        }
+
+    </style>
+</head>
+<body>
+
+
+    <canvas id="mycanvas" width="800" height="800" style="border: 1px solid red;"></canvas>
+	
+	
+	<script>
+        var canvas = document.getElementById("mycanvas");
+        var ctx = canvas.getContext("2d");
+        ctx.fillStyle = "#000";
+        ctx.fillRect(0,0, canvas.width, canvas.height);
+        for (var i = 0; i < 200; i++) {
+            var x = Math.random()*canvas.width - 40;
+            var y = Math.random()*canvas.height - 40;
+            var R = Math.random()*10 + 10;
+            var r = R/2;
+            drawStart(ctx, {
+                r: r,
+                R: R,
+                x: x,
+                y: y,
+                fillColor: "#ff0",
+                strokeColor: "#fff"
+            });
+        }    
+
+        //画五角星
+        function drawStart(ctx, opts) {
+            ctx.save();
+            ctx.translate(opts.x || 0, opts.y || 0);
+            ctx.rotate(Math.PI/180* opts.deg || 0);
+            ctx.beginPath();
+            for (var i = 0; i < 5; i++) {
+                ctx.lineTo( Math.cos( Math.PI/180*(18 + 72*i) ) *opts.R, 
+                    -Math.sin( Math.PI/180*(18 + 72*i) ) * opts.R
+                );
+                ctx.lineTo( Math.cos( Math.PI/180*(54 + 72*i) ) * opts.r, 
+                    -Math.sin( Math.PI/180*(54 + 72*i) ) * opts.r
+                );
+            }
+            ctx.closePath();
+            ctx.fillStyle = opts.fillColor || "transparent";
+            ctx.strokeStyle = opts.strokeColor || "transparent";
+            ctx.lineWidth = opts.lineWidth || 1;
+            ctx.fill();
+            ctx.stroke();
+            ctx.restore();
+        }
+        
+        
+
+        
+
+
+
+
+
+
+	</script>
+
+</body>
+</html>

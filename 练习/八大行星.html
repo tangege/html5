@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+    	body{
+            margin: 0;
+            padding: 0;
+        }
+    	canvas{
+            
+        }
+
+    </style>
+</head>
+<body>
+
+    
+    <canvas id="mycanvas" width="1200" height="1000" style="border: 1px solid red;"></canvas>
+	
+	
+	<script>
+        var canvas = document.getElementById("mycanvas");
+        var ctx = canvas.getContext("2d");
+        
+        ctx.fillStyle = "#000";
+        ctx.fillRect(0,0,canvas.width, canvas.height);
+
+        for (var i = 0; i < 8; i++) {
+            drawCircle(ctx, 500, 500, 50*(i + 1));
+        }
+        
+        drawSun(ctx, 500, 500, 30);
+        
+        function drawCircle(ctx, x, y, r) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.beginPath();
+            ctx.arc(0,0,r,0, Math.PI*2, false);
+            ctx.strokeStyle = "#fff";
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        
+        function drawPlant(ctx, x, y, r, style) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.fillStyle = style || "transparent";
+            ctx.beginPath();
+            ctx.arc(0,0,r,0, Math.PI*2, false);
+            ctx.fill();
+            ctx.restore();
+        }
+
+        function drawSun(ctx, x, y, r) {
+            var grd = ctx.createRadialGradient(0,0,10,0,0,r);
+            grd.addColorStop(0, "#f00");
+            grd.addColorStop(1, "#FF9400");
+            drawPlant(ctx, x, y, r, grd);
+        }
+
+
+	</script>
+
+</body>
+</html>

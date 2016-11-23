@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+    	
+    	canvas{
+           /* margin: 0 auto;
+            display: block;*/
+        }
+
+    </style>
+</head>
+<body>
+
+
+    <canvas id="mycanvas" width="800" height="800" style="border: 1px solid red;"></canvas>
+	
+	
+	<script>
+        var canvas = document.getElementById("mycanvas");
+        var ctx = canvas.getContext("2d");
+        
+        drawPieChart(ctx, {
+            x: 300,
+            y: 300,
+            r: 100,
+            fillColor: "#f00",
+            deg: 90,
+            rotateDeg: 0,
+            strokeColor: "#fff"
+        })
+        drawPieChart(ctx, {
+            x: 300,
+            y: 300,
+            r: 100,
+            fillColor: "#ff0",
+            deg: 30,
+            rotateDeg: 90,
+            strokeColor: "#fff"
+        })
+        drawPieChart(ctx, {
+            x: 300,
+            y: 300,
+            r: 100,
+            fillColor: "#f0f",
+            deg: 60,
+            rotateDeg: 120,
+            strokeColor: "#fff"
+        })
+        drawPieChart(ctx, {
+            x: 300,
+            y: 300,
+            r: 100,
+            fillColor: "#65A28B",
+            deg: 180,
+            rotateDeg: 180,
+            strokeColor: "#fff"
+        })
+
+        function drawPieChart(ctx, opts) {
+            ctx.save();
+            ctx.beginPath();
+            ctx.translate(opts.x, opts.y)
+            ctx.rotate(Math.PI/180* opts.rotateDeg || 0);
+            ctx.moveTo(0, 0);
+            ctx.lineTo(opts.r, 0);
+            ctx.arc(0, 0, opts.r, 0, Math.PI/180*(opts.deg || 0), false);
+            ctx.closePath();
+            ctx.fillStyle = opts.fillColor || "transparent";
+            ctx.strokeStyle = opts.strokeColor || "transparent";
+            ctx.fill();
+            ctx.stroke();
+            ctx.restore();
+        }
+
+        canvas.addEventListener("click", function(ev){
+            var obj = canvas.getBoundingClientRect();
+            var x = ev.clientX - obj.left;
+            var y = ev.clientY - obj.top;
+        
+            if(ctx.isPointInPath(x, y)){
+                alert("aaa"); 
+            }    
+        }, false);
+
+
+	</script>
+
+</body>
+</html>

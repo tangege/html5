@@ -1,0 +1,61 @@
+<!doctype html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+    	body{
+            margin: 0;
+            padding: 0;
+        }
+    	canvas{
+            
+        }
+
+    </style>
+</head>
+<body>
+
+    
+    <canvas id="mycanvas" width="800" height="800" style="border: 1px solid red;"></canvas>
+	
+	
+	<script>
+        var canvas = document.getElementById("mycanvas");
+        var ctx = canvas.getContext("2d");
+        var speed = 1;        
+        var directory = Math.random()*360;
+        var speedX = speed*Math.tan(Math.PI/180* directory);
+        var speedY = speed/Math.tan(Math.PI/180* directory);
+        var x = 20;
+        var y = 20;
+        setInterval(function () {
+            ctx.clearRect(0,0,canvas.width, canvas.height);
+            x += speedX;
+            y += speedY;
+            drawCircle(ctx, x, y);
+        }, 100)
+
+        
+
+
+
+        function drawCircle(ctx, x, y, color) {
+            ctx.save();
+            ctx.translate(x, y);
+            ctx.beginPath();
+            ctx.arc(0,0,10,0, Math.PI*2, false);
+            ctx.fillStyle = color || "#00f";
+            ctx.fill();
+            ctx.restore();
+        }
+
+        
+
+
+
+
+	</script>
+
+</body>
+</html>

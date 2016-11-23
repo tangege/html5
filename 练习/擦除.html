@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+    
+    	img,div,body{
+        margin: 0;
+        padding: 0;
+      }
+    	#mycanvas{
+        position: absolute;
+        left: 0;
+        top: 0;
+      }
+
+    </style>
+</head>
+<body>
+
+    <div>
+      <img src="../images/01.jpg" width="600" height="500">
+    </div>
+    <canvas id="mycanvas" width="600" height="500" style="border: 1px solid red;"></canvas>
+	
+	
+	<script>
+
+	   var ctx = document.getElementById("mycanvas").getContext("2d");
+     
+     caver(ctx, "#ccc");
+     function caver(ctx, color) {
+        ctx.globalCompositeOperation="destination-over";
+        ctx.fillStyle = color;
+        ctx.fillRect(0,0,600,500);
+     }
+
+     function clear(ctx,x,y,r) {
+        ctx.globalCompositeOperation="destination-out";
+        ctx.fillStyle = "#f00";
+        ctx.beginPath();
+        ctx.arc(x,y,r,0,Math.PI/180*360,false);
+        ctx.fill();
+     }
+
+     document.getElementById("mycanvas").onmousedown = function (ev) {
+        var x = ev.clientX;
+        var y = ev.clientY;
+        clear(ctx, x, y, 14);
+        document.onmousemove = function (ev) {
+            var x = ev.clientX;
+            var y = ev.clientY;
+            clear(ctx, x, y, 14);
+        }
+        document.onmouseup = function (ev) {
+            document.onmousemove = null;
+            document.onmouseup = null;
+        }
+
+     }
+
+
+
+	</script>
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!doctype html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+    	body{
+            margin: 0;
+            padding: 0;
+        }
+    	canvas{
+            
+        }
+
+    </style>
+</head>
+<body>
+
+    
+    <canvas id="mycanvas" width="1200" height="1000" style="border: 1px solid red;"></canvas>
+	
+	
+	<script>
+        var canvas = document.getElementById("mycanvas");
+        var ctx = canvas.getContext("2d");
+        
+        ctx.beginPath();
+        ctx.arc(200,200,100,0, Math.PI*2, false);
+        ctx.arc(200,200,150,0, Math.PI*2, true);
+        ctx.fillStyle = "#f00";
+        ctx.shadowColor = "#000";
+        ctx.shadowOffsetX = 10;
+        ctx.shadowOffsetY = 5;
+        ctx.shadowBlur = 20;
+        ctx.fill();
+
+	</script>
+
+</body>
+</html>

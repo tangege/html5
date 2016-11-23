@@ -1,0 +1,90 @@
+<!doctype html>
+<html>
+<head lang="en">
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+    	
+    	canvas{
+           /* margin: 0 auto;
+            display: block;*/
+        }
+
+    </style>
+</head>
+<body>
+
+
+    <canvas id="mycanvas" width="1200" height="1200" style="border: 1px solid red;"></canvas>
+	
+	
+	<script>
+        var canvas = document.getElementById("mycanvas");
+        var ctx = canvas.getContext("2d");
+        init();
+
+        function init() {
+            for (var i = 0; i < 12; i++) {
+                var deg = 30*i;
+                drawBinPic(ctx, {
+                    x: 500,
+                    y: 500,
+                    r: 250,
+                    R: 400,
+                    deg: deg,
+                    fillColor: "#FB9A00"
+                });
+            }
+        }
+        
+        function drawBinPic (ctx, opts) {
+            ctx.save();
+            ctx.translate(opts.x, opts.y);
+            ctx.rotate(Math.PI/180* opts.deg || 0);
+            ctx.beginPath();
+            ctx.moveTo(0, -opts.r);
+            ctx.lineTo(0, -opts.R);
+            ctx.arc(0,0,opts.R,Math.PI/180*(-90),Math.PI/180*(-60), false);
+            ctx.lineTo(Math.cos(Math.PI/180*60)*opts.r, -Math.sin(Math.PI/180*60)*opts.r);
+            ctx.arc(0,0,opts.r,Math.PI/180*(-60),Math.PI/180*(-90), true);
+
+            ctx.fillStyle = opts.fillColor || "transparent";
+            ctx.strokeStyle = opts.strokeColor || "#000";
+            ctx.fill();
+            ctx.stroke();
+            ctx.restore();
+        }
+        
+        canvas.addEventListener("click", function(ev) {
+                var obj = canvas.getBoundingClientRect();
+                var x = ev.clientX - obj.left;
+                var y = ev.clientY - obj.top;
+               for (var i = 0; i < 12; i++) {
+                    var deg = 30*i;
+                    drawBinPic(ctx, {
+                        x: 500,
+                        y: 500,
+                        r: 250,
+                        R: 400,
+                        deg: deg,
+                        fillColor: "#FB9A00"
+                    });
+                    if (ctx.isPointInPath(x,y)){
+                        drawBinPic(ctx, {
+                            x: 500,
+                            y: 500,
+                            r: 250,
+                            R: 400,
+                            deg: deg,
+                            fillColor: "#f00"
+                        });
+                    }
+            }
+
+        }, false)
+
+
+	</script>
+
+</body>
+</html>
