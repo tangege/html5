@@ -41,3 +41,40 @@ function drawRectangle (context,opts) {
         throw new Error("arguments was wrong!");
     }
 }
+
+//画五角星
+function drawStart(ctx, opts) {
+    ctx.save();
+    ctx.translate(opts.x || 0, opts.y || 0);
+    ctx.rotate(Math.PI/180* opts.deg || 0);
+    ctx.beginPath();
+    for (var i = 0; i < 5; i++) {
+        ctx.lineTo( Math.cos( Math.PI/180*(18 + 72*i) ) *opts.R, 
+            -Math.sin( Math.PI/180*(18 + 72*i) ) * opts.R
+        );
+        ctx.lineTo( Math.cos( Math.PI/180*(54 + 72*i) ) * opts.r, 
+            -Math.sin( Math.PI/180*(54 + 72*i) ) * opts.r
+        );
+    }
+    ctx.closePath();
+    ctx.fillStyle = opts.fillColor || "transparent";
+    ctx.lineWidth = opts.lineWidth || 1;
+    ctx.fill();
+    ctx.stroke();
+    ctx.restore();
+}
+
+//画月亮
+function drawMoon(ctx,x,y,deg) {
+    ctx.save();
+    ctx.translate(x, y);
+    ctx.rotate(Math.PI/180*deg);
+    ctx.beginPath();
+    ctx.arc(200,200,100,-Math.PI/180*90,Math.PI/180*90, false);
+    ctx.moveTo(200,300);
+    ctx.quadraticCurveTo(320,200,200,100);
+    ctx.fillStyle = "#f00";
+    ctx.fill();
+    ctx.stroke();
+    ctx.restore();
+}

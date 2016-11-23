@@ -17,30 +17,34 @@
     		padding: 0;
     	}
 
-	
+		canvas{
+			border: 1px solid red;
+		}
 
     </style>
 </head>
 <body>
 
-	<form action="？？？">
-		<input type="email" name="email">
-		<input type="datetime-local" name="datetime">
-		<input id="age" type="range" name="age" min="0" max="120" step="1" value="18">
-		<span id="aa">18</span>
-		<input type="submit" value="提交">
-	</form>
-
-	<script type="text/javascript" src="js/modernizr.js"></script>
-	<script>
-
-		document.getElementById("age").oninput = function(){
-			document.getElementById("aa").innerHTML = this.value;	
-		}	
+		<div>
+			javascript
+			<p>javascript</p>
+			<div>jQuery</div>
+			<h5>PHP</h5>
+		</div>
+		<script type="text/javascript">
+			var x=document.getElementsByTagName("div")[0].childNodes;
+			for(i in x){
+				document.write(x[i].nodeName+x[i].nodeType+x[i].nodeValue+"<br>");
+				console.log(x[i]);
+			}
 
 
+		</script>
+		
 
-	</script>
+		
+
+
 
 </body>
 </html>
