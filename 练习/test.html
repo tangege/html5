@@ -24,6 +24,65 @@
         var ctx = canvas.getContext("2d");
 
 
+//        drawBall( ctx, 20, 20, 10, '#f00');
+//
+//
+//        function drawBall ( ctx, x, y, r, color){
+//            ctx.save();
+//
+//            ctx.translate(x, y);
+//            ctx.beginPath();
+//            ctx.arc(0,0,r,0,Math.PI/180*360,false);
+//
+//            ctx.fillStyle = color || "#f0f";
+//            ctx.fill()
+//
+//            ctx.restore();
+//        }
+
+        ctx.clearRect(0,0,800,800);
+
+        var timer = setInterval(function(){
+            _this.x += _this.speed;
+            _this.y = Math.tan(Math.PI/180 * _this.directDeg) * _this.x;
+
+        }, 20);
+        this.directDeg = this.random(0, 360);
+
+
+        function Ball (color, speed) {
+            this.color = color;
+            this.speed = speed;
+            this.directDeg = 0;
+            this.timer = null;
+            this.x = 0;
+            this.y = 0;
+        }
+        Ball.prototype.init = function (ctx) {
+            this.drawBall(ctx, this.x, this.y, 10).run(this.x, this.y);
+        }
+        Ball.prototype.run = function (x, y) {
+            this.drawBall(ctx, x, y, 10);
+        }
+        Ball.prototype.drawBall = function (ctx, x, y, r) {
+            ctx.save();
+
+            ctx.translate(x, y);
+            ctx.beginPath();
+            ctx.arc(0,0,r,0,Math.PI/180*360,false);
+
+            ctx.fillStyle = this.color || "#f0f";
+            ctx.fill()
+
+            ctx.restore();
+            return this;
+        }
+        Ball.prototype.random = function (start, end) {
+            return Math.floor(Math.random()*(end - start + 1)) + start;
+        }
+
+        new Ball("#f00", 1).init(ctx);
+        new Ball("#ff0", 1).init(ctx);
 
 	</script>
 

@@ -1,0 +1,259 @@
+html,body{
+    height: 100%;
+}
+
+@keyframes sharke {
+    0%{
+
+    }
+    20%{
+        box-shadow: 0 0 20px #ff1165;
+    }
+    40%{
+        box-shadow: 0 0 20px #ff1165,
+                    0 0 40px #ff1165;
+    }
+    60%{
+        box-shadow: 0 0 20px #ff1165,
+                    0 0 40px #ff1165,
+                    0 0 60px #ff1165;
+    }
+    80%{
+        box-shadow: 0 0 20px #ff1165,
+                    0 0 40px #ff1165,
+                    0 0 60px #ff1165,
+                    0 0 80px #ff1165;
+    }
+    100%{
+        box-shadow: 0 0 20px #ff1165,
+                    0 0 40px #ff1165,
+                    0 0 60px #ff1165,
+                    0 0 80px #ff1165,
+                    0 0 100px #ff1165;
+    }
+}
+@-webkit-keyframes sharke {
+    0%{
+
+    }
+    20%{
+        box-shadow: 0 0 20px #ff1165;
+    }
+    40%{
+        box-shadow: 0 0 20px #ff1165,
+        0 0 40px #ff1165;
+    }
+    60%{
+        box-shadow: 0 0 20px #ff1165,
+        0 0 40px #ff1165,
+        0 0 60px #ff1165;
+    }
+    80%{
+        box-shadow: 0 0 20px #ff1165,
+        0 0 40px #ff1165,
+        0 0 60px #ff1165,
+        0 0 80px #ff1165;
+    }
+    100%{
+        box-shadow: 0 0 20px #ff1165,
+        0 0 40px #ff1165,
+        0 0 60px #ff1165,
+        0 0 80px #ff1165,
+        0 0 100px #ff1165;
+    }
+}
+
+@keyframes run {
+    0%{
+
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
+@-webkit-keyframes run {
+    0%{
+
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes runback {
+    0%{
+
+    }
+    100%{
+        transform: rotate(-360deg);
+    }
+}
+@-webkit-keyframes runback {
+    0%{
+
+    }
+    100%{
+        transform: rotate(-360deg);
+    }
+}
+body{
+    transition: transform 1s;
+}
+.container{
+    height: 100%;
+    min-width: 320px;
+    position: relative;
+}
+
+#music{
+    position: fixed;
+    right: 4%;
+    top: 4%;
+    width: .8rem;
+    height: .8rem;
+    border: .05rem solid #f00;
+    border-radius: 50%;
+    box-sizing: border-box;
+    z-index: 1000;
+}
+#music img:nth-of-type(1){
+    position: absolute;
+    left: .2%;
+    top: .1%;
+    animation: run 3s infinite linear;
+}
+#music img:nth-of-type(2){
+    right: 5%;
+    position: absolute;
+    top: 14%;
+    width: .27rem;
+}
+.page{
+    height: 100%;
+}
+#page1{
+    background: url("../images/p1_bg.jpg")no-repeat 0 0;
+    background-size: cover;
+    position: relative;
+    transition: transform 1s;
+}
+#page1 .lantern{
+    margin: 0 auto;
+    width: 2.89rem;
+}
+#sharde{
+    position: absolute;
+    left: 2.2rem;
+    top: 2.3rem;
+    width: 2.8rem;
+    height: 2.8rem;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-justify-content: center;
+    justify-content: center;
+    border-radius: 50%;
+    background-color: #ff1165;
+    animation: sharke 2s infinite alternate;
+}
+#sharde P{
+    font-size: .26rem;
+    text-align: center;
+    -webkit-align-self: center;
+    align-self: center;
+    color: #fff;
+}
+.imocc{
+    width: 1.77rem;
+    position: absolute;
+    bottom: .8rem;
+    left: 50%;
+    margin-left: -0.88rem;
+}
+#page1 > p{
+    font-size: .24rem;
+    text-align: center;
+    position: absolute;
+    width: 100%;
+    bottom: .2rem;
+    left: 0;
+}
+
+#page2{
+    background: url("../images/p2_bg.jpg")no-repeat 0 0;
+    background-size: cover;
+    position: relative;
+    left: 0;
+    top: 0;
+    display: none;
+}
+#page2 img{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+}
+#page2 img:nth-of-type(1){
+    width: 1.76rem;
+    margin-left: -.88rem;
+    margin-top: -.35rem;
+}
+#page2 img:nth-of-type(2){
+    width: 2.29rem;
+    margin-left: -1.145rem;
+    margin-top: -1.155rem;
+    animation: runback 1s infinite linear;
+}
+#page2 img:nth-of-type(3){
+    width: 2.92rem;
+    margin-left: -1.46rem;
+    margin-top: -1.46rem;
+    animation: run 1s 1s infinite linear;
+}
+#page2 img:nth-of-type(4){
+    width: 3.80rem;
+    margin-left: -1.90rem;
+    margin-top: -1.835rem;
+    animation: runback 1s 2s infinite linear;
+}
+
+#page3{
+    background: url("../images/p3_bg.jpg")no-repeat 0 0;
+    background-size: cover;
+    position: relative;
+    overflow: hidden;
+    left: 0;
+    top: 0;
+    display: none;
+}
+#page3 .logo{
+    width: 2.22rem;
+    margin: 1.5rem auto 1.5rem;
+}
+.couplet2,.couplet1{
+    width: 1.64rem;
+    position: absolute;
+}
+.couplet2{
+    left: .2rem;
+}
+.couplet1{
+    right: .2rem;
+}
+.title{
+    width: 3.08rem;
+    margin: 0 auto;
+}
+.bless{
+    position: absolute;
+    width: 2.05rem;
+    left: 50%;
+    margin-left: -1.025rem;
+    bottom: 1.0rem;
+    animation: run 2s infinite linear;
+}
+.scroll{
+    -webkit-transform: translate(0, -100%);
+    -moz-transform: translate(0, -100%);
+    -ms-transform: translate(0, -100%);
+    -o-transform: translate(0, -100%);
+    transform: translate(0, -100%);
+}
